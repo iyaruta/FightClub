@@ -1,6 +1,6 @@
 package com.inna.date;
 
-public class Date {
+public class Player {
 
     private String name;
     private int force;
