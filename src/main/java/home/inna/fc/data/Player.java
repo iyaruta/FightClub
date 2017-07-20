@@ -1,15 +1,29 @@
-package com.inna.date;
+package home.inna.fc.data;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "player")
 public class Player {
 
+    private int id;
     private String name;
     private int force;
-    private int skill;
+    private int agility;
     private int instinct;
     private int stamina;
     private int experience;
     private int level;
     private int health;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -27,12 +41,12 @@ public class Player {
         this.force = force;
     }
 
-    public int getSkill() {
-        return skill;
+    public int getAgility() {
+        return agility;
     }
 
-    public void setSkill(int skill) {
-        this.skill = skill;
+    public void setAgility(int agility) {
+        this.agility = agility;
     }
 
     public int getInstinct() {
