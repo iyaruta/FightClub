@@ -27,7 +27,7 @@ public class PlayerServiceTest {
 
     @Test
     public void testFindByName() throws Exception {
-//        when(playerRepository.findByName("test_player_name")).thenReturn(getPlayer());
+        when(playerRepository.findByName("test_player_name")).thenReturn(getPlayer());
 
 
         Player player = playerService.findByName("test_player_name");
