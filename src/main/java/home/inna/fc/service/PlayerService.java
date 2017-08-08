@@ -5,19 +5,16 @@ import home.inna.fc.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class PlayerService {
 
     @Autowired
     public PlayerRepository playerRepository;
 
-    @Autowired
     public Player findByName(String name){
         return playerRepository.findByName(name);
     }
 
-    @Autowired
     public Player save(String name){
         Player player = new Player();
         player.setName(name);
