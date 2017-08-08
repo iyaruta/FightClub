@@ -17,7 +17,6 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-
     @RequestMapping(value = "/{name}",method = RequestMethod.GET)
     public String player(@PathVariable String name, Model model) {
         Player player = playerService.findByName(name);

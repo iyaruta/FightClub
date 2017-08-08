@@ -27,9 +27,7 @@ public class PlayerService {
         player.setStamina(3);
         player.setHealth(30);
         player.setLevel(1);
-
         return playerRepository.save(player);
     }
-
 
 }

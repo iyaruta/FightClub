@@ -1,5 +1,6 @@
 package home.inna.fc.config;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,7 +20,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("home.inna.fc.repository")
-
 public class DataConfig {
 
     private static final String PROP_DATABASE_DRIVER = "db.driver";

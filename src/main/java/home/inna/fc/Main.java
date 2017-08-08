@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("home.inna.fc")
+@ComponentScan({"home.inna.fc"})
 @EnableAutoConfiguration
 public class Main {
 

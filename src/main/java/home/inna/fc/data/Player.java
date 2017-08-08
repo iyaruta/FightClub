@@ -1,14 +1,17 @@
 package home.inna.fc.data;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "player")
 public class Player {
 
-    private int id;
+    @Id
+    private Integer id;
     private String name;
+    private int ability;
     private int force;
     private int agility;
     private int instinct;
@@ -17,11 +20,11 @@ public class Player {
     private int level;
     private int health;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,6 +34,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAbility() {
+        return ability;
+    }
+
+    public void setAbility(int ability) {
+        this.ability = ability;
     }
 
     public int getForce() {

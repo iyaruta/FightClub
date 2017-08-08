@@ -27,11 +27,12 @@ public class PlayerServiceTest {
 
     @Test
     public void testFindByName() throws Exception {
-        when(playerRepository.findByName("test_player_name")).thenReturn(getPlayer());
+//        when(playerRepository.findByName("test_player_name")).thenReturn(getPlayer());
 
 
         Player player = playerService.findByName("test_player_name");
         assertNotNull(player);
+        assertEquals(1, player.getAbility());
         assertEquals(4, player.getForce());
         assertEquals(3, player.getAgility());
         assertEquals(3, player.getInstinct());
@@ -70,6 +71,7 @@ public class PlayerServiceTest {
         player.setLevel(1);
         player.setHealth(0);
         player.setExperience(0);
+        player.setAbility(1);
         return player;
     }
 }
