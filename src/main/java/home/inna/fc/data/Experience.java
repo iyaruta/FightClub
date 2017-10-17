@@ -3,6 +3,7 @@ package home.inna.fc.data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.*;
 
 @Entity
 @Table(name = "experience_table")
@@ -36,4 +37,9 @@ public class Experience {
     public void setLevel(int level) {
         this.level = level;
     }
+
+    public void dfgdg(){
+
+    }
+
 }

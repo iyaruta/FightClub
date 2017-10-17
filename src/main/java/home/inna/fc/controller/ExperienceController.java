@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/experience") //тут уже есть слово experience, не надо повторять в методе
+@RequestMapping("/experience")
 public class ExperienceController {
 
     @Autowired
@@ -19,9 +19,10 @@ public class ExperienceController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Experience> experience(){
+    public List<Experience> get() {
         List<Experience> exp = experienceService.findAll();
         return exp;
     }
+
 
 }
