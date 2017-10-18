@@ -1,10 +1,8 @@
 package home.inna.fc.data;
 
-import sun.util.resources.LocaleData;
-
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,8 +12,8 @@ public class DuelRequest {
     @Id
     private int id;
     private int timeOut;
-    private int playerOne;
-    private int playerTwo;
+    private Integer playerOne;
+    private Integer playerTwo;
     private LocalDateTime dataTime;
 
     public int getId() {
@@ -34,19 +32,19 @@ public class DuelRequest {
         this.timeOut = timeOut;
     }
 
-    public int getPlayerOne() {
+    public Integer getPlayerOne() {
         return playerOne;
     }
 
-    public void setPlayerOne(int playerOne) {
+    public void setPlayerOne(Integer playerOne) {
         this.playerOne = playerOne;
     }
 
-    public int getPlayerTwo() {
+    public Integer getPlayerTwo() {
         return playerTwo;
     }
 
-    public void setPlayerTwo(int playerTwo) {
+    public void setPlayerTwo(Integer playerTwo) {
         this.playerTwo = playerTwo;
     }
 

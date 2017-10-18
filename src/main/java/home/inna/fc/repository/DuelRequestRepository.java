@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface DuelRequestRepository extends JpaRepository <DuelRequest, Integer> {
-    @Query("from Duel_Request smyhb bbyf dr ")
 
 //    @Query("count(*) from DUEL_REQUEST where playerOne  = ? or  playerTwo = ?")
-    Player plr(@Param("nameId")String name);
+
+
 }
