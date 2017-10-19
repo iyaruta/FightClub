@@ -119,6 +119,33 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
+    @Test
+    public void cancel() {
+        DuelRequest req = duelRequest(PLAYER_2);
+        when(duelRequestRepository.findOne(1)).thenReturn(req);
+
+        duelRequestService.cancel(1, PLAYER_1);
+
+        verify(duelRequestRepository).delete(1);
+    }
+
+    @Test
+    public void cancel_NoRequest() {
+        when(duelRequestRepository.findOne(1)).thenReturn(null);
+
+        verify(duelRequestRepository, never()).delete(anyInt());
+    }
+
+    @Test
+    public void cancel_NotOwner() {
+        DuelRequest req = duelRequest(PLAYER_2);
+        when(duelRequestRepository.findOne(1)).thenReturn(req);
+        duelRequestService.cancel(1, 2);
+
+        verify(duelRequestRepository, never()).delete(anyInt());
+    }
+
+
     private DuelRequest duelRequest(Integer player2) {
         DuelRequest duelRequest = new DuelRequest();
         duelRequest.setId(1);

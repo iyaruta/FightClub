@@ -48,7 +48,7 @@ public class DuelRequestController {
 //    }
 
     @RequestMapping(method = RequestMethod.DELETE) // отклонить
-    public String rejectRequest() {
+    public String reject() {
 
 
         return "";

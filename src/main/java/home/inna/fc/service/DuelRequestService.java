@@ -43,4 +43,11 @@ public class DuelRequestService {
         return request;
     }
 
+    public void cancel(int requestId, int owner) {
+        DuelRequest request = duelRequestRepository.findOne(requestId);
+        if (request != null && request.getPlayerOne() == owner) {
+            duelRequestRepository.delete(requestId);
+        }
+    }
+
 }
