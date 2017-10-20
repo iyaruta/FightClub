@@ -132,7 +132,6 @@ public class DuelRequestServiceTest {
     @Test
     public void cancel_NoRequest() {
         when(duelRequestRepository.findOne(1)).thenReturn(null);
-
         verify(duelRequestRepository, never()).delete(anyInt());
     }
 
@@ -145,6 +144,33 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).delete(anyInt());
     }
 
+    @Test
+    public void refuse() {
+        DuelRequest request = duelRequest(PLAYER_2);
+        when(duelRequestRepository.findOne(1)).thenReturn(request);
+        duelRequestService.refuse(1, PLAYER_2);
+
+        ArgumentCaptor<DuelRequest> captor = ArgumentCaptor.forClass(DuelRequest.class);
+        verify(duelRequestRepository).save(captor.capture());
+        DuelRequest res = captor.getValue();
+        assertEquals(1, res.getId());
+        assertEquals(PLAYER_1, res.getPlayerOne());
+        assertNull(res.getPlayerTwo());
+    }
+
+    @Test
+    public void refuse_NoRequest() {
+        when(duelRequestRepository.findOne(1)).thenReturn(null);
+        verify(duelRequestRepository, never()).save(any(DuelRequest.class));
+    }
+
+    @Test
+    public void refuse_NotOwner() {
+        DuelRequest request = duelRequest(PLAYER_2);
+        when(duelRequestRepository.findOne(1)).thenReturn(request);
+        duelRequestService.refuse(1, 3);
+        verify(duelRequestRepository, never()).save(any(DuelRequest.class));
+    }
 
     private DuelRequest duelRequest(Integer player2) {
         DuelRequest duelRequest = new DuelRequest();

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DuelRequestService {
@@ -45,8 +46,16 @@ public class DuelRequestService {
 
     public void cancel(int requestId, int owner) {
         DuelRequest request = duelRequestRepository.findOne(requestId);
-        if (request != null && request.getPlayerOne() == owner) {
+        if (request != null && Objects.equals(request.getPlayerOne(), owner)) {
             duelRequestRepository.delete(requestId);
+        }
+    }
+
+    public void refuse(int requestId, int player2) {
+        DuelRequest request = duelRequestRepository.findOne(requestId);
+        if (request != null && Objects.equals(request.getPlayerTwo(), player2)) {
+            request.setPlayerTwo(null);
+            duelRequestRepository.save(request);
         }
     }
 
