@@ -88,7 +88,7 @@ public class DuelRequestServiceTest {
         DuelRequest request = duelRequest(PLAYER_2);
         when(duelRequestRepository.findOne(1)).thenReturn(request);
 
-        DuelRequest res = duelRequestService.reject(1);
+        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
         assertEquals(1, res.getId());
         assertEquals(PLAYER_1, res.getPlayerOne());
         assertNull(res.getPlayerTwo());
@@ -101,7 +101,7 @@ public class DuelRequestServiceTest {
         DuelRequest request = duelRequest(null);
         when(duelRequestRepository.findOne(1)).thenReturn(request);
 
-        DuelRequest res = duelRequestService.reject(1);
+        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
         assertEquals(1, res.getId());
         assertEquals(PLAYER_1, res.getPlayerOne());
         assertNull(res.getPlayerTwo());
@@ -113,10 +113,20 @@ public class DuelRequestServiceTest {
     public void reject_NoRequest() {
         when(duelRequestRepository.findOne(1)).thenReturn(null);
 
-        DuelRequest res = duelRequestService.reject(1);
+        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
         assertNull(res);
 
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
+    }
+
+    @Test
+    public void reject_NotOwner() {
+        DuelRequest req = duelRequest(PLAYER_2);
+        when(duelRequestRepository.findOne(1)).thenReturn(req);
+        duelRequestService.reject(1, 3);
+
+        verify(duelRequestRepository, never()).delete(anyInt());
+
     }
 
     @Test
