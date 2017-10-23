@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class Player {
 
     @Id
-    private Integer id;
+    private Long id;
     private String name;
     private int ability;
     private int force;
@@ -20,11 +20,11 @@ public class Player {
     private int level;
     private int health;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

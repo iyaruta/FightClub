@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 public class DuelRequest {
 
     @Id
-    private int id;
+    private Long id;
     private int timeOut;
-    private Integer playerOne;
-    private Integer playerTwo;
+    private Long playerOne;
+    private Long playerTwo;
     private LocalDateTime dataTime;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -32,19 +32,19 @@ public class DuelRequest {
         this.timeOut = timeOut;
     }
 
-    public Integer getPlayerOne() {
+    public Long getPlayerOne() {
         return playerOne;
     }
 
-    public void setPlayerOne(Integer playerOne) {
+    public void setPlayerOne(Long playerOne) {
         this.playerOne = playerOne;
     }
 
-    public Integer getPlayerTwo() {
+    public Long getPlayerTwo() {
         return playerTwo;
     }
 
-    public void setPlayerTwo(Integer playerTwo) {
+    public void setPlayerTwo(Long playerTwo) {
         this.playerTwo = playerTwo;
     }
 
