@@ -47,28 +47,28 @@ public class DuelRequestController {
 //        return duelRequestService.save();
 //    }
 
-    @RequestMapping(method = RequestMethod.DELETE) // отклонить
-    public String reject() {
-
-
-        return "";
-    }
-
-    @RequestMapping(method = RequestMethod.GET) // отменить
-    public String cancelRequest() {
-        return "";
-
-    }
-
-    @RequestMapping(method = RequestMethod.GET) // просьба отказать
-    public String refuseRequest() {
-        return "";
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String startDuel() {
-        return "";
-    }
+//    @RequestMapping(method = RequestMethod.DELETE) // отклонить
+//    public String reject() {
+//
+//
+//        return "";
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET) // отменить
+//    public String cancelRequest() {
+//        return "";
+//
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET) // просьба отказать
+//    public String refuseRequest() {
+//        return "";
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String startDuel() {
+//        return "";
+//    }
 
 
 
