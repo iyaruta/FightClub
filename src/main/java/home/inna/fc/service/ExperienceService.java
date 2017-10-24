@@ -1,9 +1,9 @@
 package home.inna.fc.service;
 
 import home.inna.fc.data.Experience;
-import home.inna.fc.data.Player;
+import home.inna.fc.data.Hero;
 import home.inna.fc.repository.ExperienceRepository;
-import home.inna.fc.repository.PlayerRepository;
+import home.inna.fc.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,24 +13,24 @@ import java.util.List;
 public class ExperienceService {
 
     @Autowired
-    public PlayerRepository playerRepository;
+    public HeroRepository heroRepository;
 
     @Autowired
     public ExperienceRepository experienceRepository;
 
-    public Player recalculate(Player player, int exp){
+    public Hero recalculate(Hero hero, int exp){
         if (exp <= 0) {
-            return player;
+            return hero;
         }
 
-        int currentExp = player.getExperience() + exp;
-        List<Experience> experienceList = experienceRepository.findByRange(player.getExperience(), currentExp);
+        int currentExp = hero.getExperience() + exp;
+        List<Experience> experienceList = experienceRepository.findByRange(hero.getExperience(), currentExp);
         for (Experience experience: experienceList ) {
-            player.setLevel(player.getLevel() + experience.getLevel());
-            player.setAbility(player.getAbility() + experience.getAbility());
+            hero.setLevel(hero.getLevel() + experience.getLevel());
+            hero.setAbility(hero.getAbility() + experience.getAbility());
         }
-        player.setExperience(currentExp);
-        return playerRepository.save(player);
+        hero.setExperience(currentExp);
+        return heroRepository.save(hero);
     }
 
     public List<Experience> findAll(){

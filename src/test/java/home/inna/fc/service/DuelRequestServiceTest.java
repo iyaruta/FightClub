@@ -25,8 +25,8 @@ public class DuelRequestServiceTest {
     @InjectMocks
     private DuelRequestService duelRequestService;
 
-    private static final Integer PLAYER_1 = 100;
-    private static final Integer PLAYER_2 = 200;
+    private static final Long HERO_1 = 100L;
+    private static final Long HERO_2 = 200L;
 
 
     @Test
@@ -55,43 +55,43 @@ public class DuelRequestServiceTest {
     public void accept() throws Exception {
         DuelRequest duelRequest = duelRequest(null);
 
-        when(duelRequestRepository.findOne(1)).thenReturn(duelRequest);
+        when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest);
 
-        DuelRequest res = duelRequestService.accept(1, PLAYER_2);
-        assertEquals(1, res.getId());
-        assertEquals(PLAYER_1, res.getPlayerOne());
-        assertEquals(PLAYER_2, res.getPlayerTwo());
+        DuelRequest res = duelRequestService.accept(1L, HERO_2);
+        assertEquals(Long.valueOf(1), res.getId());
+        assertEquals(HERO_1, res.getHeroOne());
+        assertEquals(HERO_2, res.getHeroTwo());
         verify(duelRequestRepository).save(duelRequest);
     }
 
     @Test
     public void accept_NotReq() throws Exception {
-        when(duelRequestRepository.findOne(1)).thenReturn(null);
+        when(duelRequestRepository.findOne(1L)).thenReturn(null);
 
-        DuelRequest res = duelRequestService.accept(1, PLAYER_2);
+        DuelRequest res = duelRequestService.accept(1L, HERO_2);
         assertNull(res);
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
     @Test
     public void accept_RequestOccupied() {
-        DuelRequest duelRequest = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(duelRequest);
+        DuelRequest duelRequest = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest);
 
-        duelRequestService.accept(1, PLAYER_2);
+        duelRequestService.accept(1L, HERO_2);
 
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
     @Test
     public void reject() {
-        DuelRequest request = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(request);
+        DuelRequest request = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(request);
 
-        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
-        assertEquals(1, res.getId());
-        assertEquals(PLAYER_1, res.getPlayerOne());
-        assertNull(res.getPlayerTwo());
+        DuelRequest res = duelRequestService.reject(1L, HERO_1);
+        assertEquals(Long.valueOf(1), res.getId());
+        assertEquals(HERO_1, res.getHeroOne());
+        assertNull(res.getHeroTwo());
 
         verify(duelRequestRepository).save(any(DuelRequest.class));
     }
@@ -99,21 +99,21 @@ public class DuelRequestServiceTest {
     @Test
     public void reject_AlreadyRefused() {
         DuelRequest request = duelRequest(null);
-        when(duelRequestRepository.findOne(1)).thenReturn(request);
+        when(duelRequestRepository.findOne(1L)).thenReturn(request);
 
-        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
-        assertEquals(1, res.getId());
-        assertEquals(PLAYER_1, res.getPlayerOne());
-        assertNull(res.getPlayerTwo());
+        DuelRequest res = duelRequestService.reject(1L, HERO_1);
+        assertEquals(Long.valueOf(1), res.getId());
+        assertEquals(HERO_1, res.getHeroOne());
+        assertNull(res.getHeroTwo());
 
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
     @Test
     public void reject_NoRequest() {
-        when(duelRequestRepository.findOne(1)).thenReturn(null);
+        when(duelRequestRepository.findOne(1L)).thenReturn(null);
 
-        DuelRequest res = duelRequestService.reject(1, PLAYER_1);
+        DuelRequest res = duelRequestService.reject(1L, HERO_1);
         assertNull(res);
 
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
@@ -121,72 +121,72 @@ public class DuelRequestServiceTest {
 
     @Test
     public void reject_NotOwner() {
-        DuelRequest req = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(req);
-        duelRequestService.reject(1, 3);
+        DuelRequest req = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(req);
+        duelRequestService.reject(1L, 3L);
 
-        verify(duelRequestRepository, never()).delete(anyInt());
+        verify(duelRequestRepository, never()).delete(anyLong());
 
     }
 
     @Test
     public void cancel() {
-        DuelRequest req = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(req);
+        DuelRequest req = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(req);
 
-        duelRequestService.cancel(1, PLAYER_1);
+        duelRequestService.cancel(1L, HERO_1);
 
-        verify(duelRequestRepository).delete(1);
+        verify(duelRequestRepository).delete(1L);
     }
 
     @Test
     public void cancel_NoRequest() {
-        when(duelRequestRepository.findOne(1)).thenReturn(null);
-        verify(duelRequestRepository, never()).delete(anyInt());
+        when(duelRequestRepository.findOne(1L)).thenReturn(null);
+        verify(duelRequestRepository, never()).delete(anyLong());
     }
 
     @Test
     public void cancel_NotOwner() {
-        DuelRequest req = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(req);
-        duelRequestService.cancel(1, 2);
+        DuelRequest req = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(req);
+        duelRequestService.cancel(1L, 2L);
 
-        verify(duelRequestRepository, never()).delete(anyInt());
+        verify(duelRequestRepository, never()).delete(anyLong());
     }
 
     @Test
     public void refuse() {
-        DuelRequest request = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(request);
-        duelRequestService.refuse(1, PLAYER_2);
+        DuelRequest request = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(request);
+        duelRequestService.refuse(1L, HERO_2);
 
         ArgumentCaptor<DuelRequest> captor = ArgumentCaptor.forClass(DuelRequest.class);
         verify(duelRequestRepository).save(captor.capture());
         DuelRequest res = captor.getValue();
-        assertEquals(1, res.getId());
-        assertEquals(PLAYER_1, res.getPlayerOne());
-        assertNull(res.getPlayerTwo());
+        assertEquals(Long.valueOf(1), res.getId());
+        assertEquals(HERO_1, res.getHeroOne());
+        assertNull(res.getHeroTwo());
     }
 
     @Test
     public void refuse_NoRequest() {
-        when(duelRequestRepository.findOne(1)).thenReturn(null);
+        when(duelRequestRepository.findOne(1L)).thenReturn(null);
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
     @Test
     public void refuse_NotOwner() {
-        DuelRequest request = duelRequest(PLAYER_2);
-        when(duelRequestRepository.findOne(1)).thenReturn(request);
-        duelRequestService.refuse(1, 3);
+        DuelRequest request = duelRequest(HERO_2);
+        when(duelRequestRepository.findOne(1L)).thenReturn(request);
+        duelRequestService.refuse(1L, 3L);
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    private DuelRequest duelRequest(Integer player2) {
+    private DuelRequest duelRequest(Long hero2) {
         DuelRequest duelRequest = new DuelRequest();
-        duelRequest.setId(1);
-        duelRequest.setPlayerOne(PLAYER_1);
-        duelRequest.setPlayerTwo(player2);
+        duelRequest.setId(1L);
+        duelRequest.setHeroOne(HERO_1);
+        duelRequest.setHeroTwo(hero2);
         return duelRequest;
     }
 

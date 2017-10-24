@@ -32,45 +32,10 @@ public class DuelRequestController {
     @RequestMapping(method = RequestMethod.POST)
     public DuelRequest save() {
         DuelRequest duelRequest = new DuelRequest();
-        duelRequest.setPlayerOne(playerProvider.getCurrentPlayer().getId());
-        duelRequest.setTimeOut(Timeout.ONE.getValue());
+        duelRequest.setHeroOne(playerProvider.getCurrentPlayer().getId());
+        duelRequest.setTimeout(Timeout.ONE.getValue());
         duelRequest.setDataTime(LocalDateTime.now());
         return duelRequestService.save(duelRequest);
 
     }
-
-//    @RequestMapping(method = RequestMethod.GET) // принять запрос
-//    public DuelRequest accept(DuelRequest duelReq) {
-//        int playerOne = duelReq.getPlayerOne();
-//        duelReq.setPlayerTwo(playerProvider.getCurrentPlayer().getId());
-//
-//        return duelRequestService.save();
-//    }
-
-//    @RequestMapping(method = RequestMethod.DELETE) // отклонить
-//    public String reject() {
-//
-//
-//        return "";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.GET) // отменить
-//    public String cancelRequest() {
-//        return "";
-//
-//    }
-//
-//    @RequestMapping(method = RequestMethod.GET) // просьба отказать
-//    public String refuseRequest() {
-//        return "";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String startDuel() {
-//        return "";
-//    }
-
-
-
-
 }

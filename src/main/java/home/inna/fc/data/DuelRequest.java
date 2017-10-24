@@ -1,8 +1,6 @@
 package home.inna.fc.data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,10 +8,14 @@ import java.time.LocalDateTime;
 public class DuelRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int timeOut;
-    private Long playerOne;
-    private Long playerTwo;
+    private int timeout;
+    @Column(name = "hero_one")
+    private Long heroOne;
+
+    @Column(name = "hero_two")
+    private Long heroTwo;
     private LocalDateTime dataTime;
 
     public Long getId() {
@@ -24,28 +26,28 @@ public class DuelRequest {
         this.id = id;
     }
 
-    public int getTimeOut() {
-        return timeOut;
+    public int getTimeout() {
+        return timeout;
     }
 
-    public void setTimeOut(int timeOut) {
-        this.timeOut = timeOut;
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
-    public Long getPlayerOne() {
-        return playerOne;
+    public Long getHeroOne() {
+        return heroOne;
     }
 
-    public void setPlayerOne(Long playerOne) {
-        this.playerOne = playerOne;
+    public void setHeroOne(Long heroOne) {
+        this.heroOne = heroOne;
     }
 
-    public Long getPlayerTwo() {
-        return playerTwo;
+    public Long getHeroTwo() {
+        return heroTwo;
     }
 
-    public void setPlayerTwo(Long playerTwo) {
-        this.playerTwo = playerTwo;
+    public void setHeroTwo(Long heroTwo) {
+        this.heroTwo = heroTwo;
     }
 
     public LocalDateTime getDataTime() {

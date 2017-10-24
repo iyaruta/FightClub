@@ -1,12 +1,12 @@
 package home.inna.fc.service;
 
-import home.inna.fc.data.Player;
+import home.inna.fc.data.Hero;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PlayerProvider {
 
-    public Player getCurrentPlayer(){
+    public Hero getCurrentPlayer(){
         return null;
     }
 }

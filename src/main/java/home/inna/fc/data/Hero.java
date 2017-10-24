@@ -1,15 +1,17 @@
 package home.inna.fc.data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "player")
-public class Player {
+@Table(name = "hero")
+public class Hero {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "account_id")
+    private Long accountId;
     private String name;
     private int ability;
     private int force;
@@ -26,6 +28,14 @@ public class Player {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getName() {

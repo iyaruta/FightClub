@@ -1,9 +1,9 @@
 package home.inna.fc.service;
 
 import home.inna.fc.data.Experience;
-import home.inna.fc.data.Player;
+import home.inna.fc.data.Hero;
 import home.inna.fc.repository.ExperienceRepository;
-import home.inna.fc.repository.PlayerRepository;
+import home.inna.fc.repository.HeroRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,33 +27,33 @@ public class ExperienceServiceTest {
     private ExperienceRepository experienceRepository;
 
     @Mock
-    private PlayerRepository playerRepository;
+    private HeroRepository heroRepository;
 
     @InjectMocks
     private ExperienceService experienceService;
 
-    private Player player;
+    private Hero hero;
 
     @Before
     public void setup() {
-        player = getPlayer();
-        when(playerRepository.save(any(Player.class))).thenReturn(player);
+        hero = getHero();
+        when(heroRepository.save(any(Hero.class))).thenReturn(hero);
     }
 
     @Test
     public void testRecalculate_ZeroExp() {
-        experienceService.recalculate(this.player, 0);
+        experienceService.recalculate(this.hero, 0);
 
         verify(experienceRepository, never()).findByRange(anyInt(), anyInt());
-        verify(playerRepository, never()).save(any(Player.class));
+        verify(heroRepository, never()).save(any(Hero.class));
     }
 
     @Test
     public void testRecalculate_MinusExp() {
-        experienceService.recalculate(this.player, Integer.MIN_VALUE);
+        experienceService.recalculate(this.hero, Integer.MIN_VALUE);
 
         verify(experienceRepository, never()).findByRange(anyInt(), anyInt());
-        verify(playerRepository, never()).save(any(Player.class));
+        verify(heroRepository, never()).save(any(Hero.class));
     }
 
     @Test
@@ -61,13 +61,13 @@ public class ExperienceServiceTest {
         List<Experience> experienceList = Collections.singletonList(experience(1, 0));
         when(experienceRepository.findByRange(3, 93)).thenReturn(experienceList);
 
-        Player player = experienceService.recalculate(this.player, 90);
-        assertNotNull(player);
-        assertEquals(93, player.getExperience());
-        assertEquals(6, player.getLevel());
-        assertEquals(4, player.getAbility());
+        Hero hero = experienceService.recalculate(this.hero, 90);
+        assertNotNull(hero);
+        assertEquals(93, hero.getExperience());
+        assertEquals(6, hero.getLevel());
+        assertEquals(4, hero.getAbility());
 
-        verify(playerRepository).save(player);
+        verify(heroRepository).save(hero);
     }
 
     @Test
@@ -75,12 +75,12 @@ public class ExperienceServiceTest {
         List<Experience> experienceList = Arrays.asList(experience(0, 1), experience(0, 1));
         when(experienceRepository.findByRange(3, 1003)).thenReturn(experienceList);
 
-        Player player = experienceService.recalculate(this.player, 1000);
-        assertNotNull(player);
-        assertEquals(1003, player.getExperience());
-        assertEquals(8, player.getLevel());
+        Hero hero = experienceService.recalculate(this.hero, 1000);
+        assertNotNull(hero);
+        assertEquals(1003, hero.getExperience());
+        assertEquals(8, hero.getLevel());
 
-        verify(playerRepository).save(player);
+        verify(heroRepository).save(hero);
     }
 
     @Test
@@ -88,13 +88,13 @@ public class ExperienceServiceTest {
         List<Experience> experienceList = Collections.emptyList();
         when(experienceRepository.findByRange(3, 15)).thenReturn(experienceList);
 
-        Player player = experienceService.recalculate(this.player, 12);
-        assertNotNull(player);
-        assertEquals(15, player.getExperience());
-        assertEquals(6, player.getLevel());
-        assertEquals(3, player.getAbility());
+        Hero hero = experienceService.recalculate(this.hero, 12);
+        assertNotNull(hero);
+        assertEquals(15, hero.getExperience());
+        assertEquals(6, hero.getLevel());
+        assertEquals(3, hero.getAbility());
 
-        verify(playerRepository).save(player);
+        verify(heroRepository).save(hero);
     }
 
     @Test
@@ -102,33 +102,33 @@ public class ExperienceServiceTest {
         List<Experience> experienceList = Arrays.asList(experience(1, 0), experience(1, 0), experience(1, 1));
         when(experienceRepository.findByRange(3, 93)).thenReturn(experienceList);
 
-        Player player = experienceService.recalculate(this.player, 90);
+        Hero hero = experienceService.recalculate(this.hero, 90);
 
-        assertEquals("test_player_name", player.getName());
-        assertEquals(6, player.getAbility());
-        assertEquals(4, player.getForce());
-        assertEquals(3, player.getAgility());
-        assertEquals(3, player.getInstinct());
-        assertEquals(3, player.getStamina());
-        assertEquals(7, player.getLevel());
-        assertEquals(0, player.getHealth());
-        assertEquals(93, player.getExperience());
+        assertEquals("test_player_name", hero.getName());
+        assertEquals(6, hero.getAbility());
+        assertEquals(4, hero.getForce());
+        assertEquals(3, hero.getAgility());
+        assertEquals(3, hero.getInstinct());
+        assertEquals(3, hero.getStamina());
+        assertEquals(7, hero.getLevel());
+        assertEquals(0, hero.getHealth());
+        assertEquals(93, hero.getExperience());
 
-        verify(playerRepository).save(player);
+        verify(heroRepository).save(hero);
     }
 
-    private Player getPlayer() {
-        Player player = new Player();
-        player.setName("test_player_name");
-        player.setAbility(3);
-        player.setForce(4);
-        player.setAgility(3);
-        player.setInstinct(3);
-        player.setStamina(3);
-        player.setLevel(6);
-        player.setHealth(0);
-        player.setExperience(3);
-        return player;
+    private Hero getHero() {
+        Hero hero = new Hero();
+        hero.setName("test_player_name");
+        hero.setAbility(3);
+        hero.setForce(4);
+        hero.setAgility(3);
+        hero.setInstinct(3);
+        hero.setStamina(3);
+        hero.setLevel(6);
+        hero.setHealth(0);
+        hero.setExperience(3);
+        return hero;
     }
 
     private Experience experience(int ability, int level) {

@@ -1,8 +1,9 @@
-INSERT INTO player (id, name, force, agility, instinct, stamina, level, health)
-VALUES (1, 'Inna', 4, 3, 3, 3, 0, 1)
 
-INSERT INTO player (id, name, force, agility, instinct, stamina, level, health)
-VALUES (1, 'Sasha', 4, 3, 3, 3, 0, 1)
+INSERT INTO hero (id, account_id, name, ability, force, agility,  instinct, stamina, experience, level, health)
+VALUES (1, 1, 'Inna', 4, 3, 3, 3, 0, 1)
+
+INSERT INTO hero (id, account_id, name, ability, force, agility,  instinct, stamina, experience, level, health)
+VALUES (2, 2, 'Sasha', 4, 3, 3, 3, 0, 1)
 
 INSERT INTO EXPERIENCE_TABLE(experince, ability, level)
 VALUES (0, 3, 0)
@@ -20,4 +21,3 @@ INSERT INTO EXPERIENCE_TABLE(experince, ability, level)
 VALUES (160, 1, 0)
 INSERT INTO EXPERIENCE_TABLE(experince, ability, level)
 VALUES (210, 1, 0)
-INSERT INTO EXPERIENCE_TABLE(experince, ability, level)
