@@ -1,0 +1,35 @@
+security:
+  signup: /sign-up
+  jwt:
+    prefix: "Bearer "
+    header: Authorization
+    expiration: 86400
+    secret: e970bfde1b86ff02d538cbf9627b3e38
+
+spring:
+  profiles: default, local
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/fightClub"
+    username: postgres
+    password: postgres
+    driver-class-name: "org.postgresql.Driver"
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+
+---
+
+
+spring:
+  profiles: local2
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: postgres
+    password: postgres
+    driver-class-name: "org.postgresql.Driver"
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
