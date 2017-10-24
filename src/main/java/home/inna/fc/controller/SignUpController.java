@@ -22,7 +22,7 @@ public class SignUpController {
     private HeroService heroService;
 
     public SignUpController(AccountRepository accountRepository,
-                          BCryptPasswordEncoder bCryptPasswordEncoder) {
+                            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.accountRepository = accountRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

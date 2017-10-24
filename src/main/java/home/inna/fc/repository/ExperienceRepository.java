@@ -12,7 +12,6 @@ public interface ExperienceRepository extends JpaRepository<Experience, Integer>
     List<Experience> findByRange(int currentExp, int newExp);
 
 
-
 }
 
 

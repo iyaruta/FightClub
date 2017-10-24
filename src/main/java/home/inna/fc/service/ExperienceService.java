@@ -18,14 +18,14 @@ public class ExperienceService {
     @Autowired
     public ExperienceRepository experienceRepository;
 
-    public Hero recalculate(Hero hero, int exp){
+    public Hero recalculate(Hero hero, int exp) {
         if (exp <= 0) {
             return hero;
         }
 
         int currentExp = hero.getExperience() + exp;
         List<Experience> experienceList = experienceRepository.findByRange(hero.getExperience(), currentExp);
-        for (Experience experience: experienceList ) {
+        for (Experience experience : experienceList) {
             hero.setLevel(hero.getLevel() + experience.getLevel());
             hero.setAbility(hero.getAbility() + experience.getAbility());
         }
@@ -33,7 +33,7 @@ public class ExperienceService {
         return heroRepository.save(hero);
     }
 
-    public List<Experience> findAll(){
+    public List<Experience> findAll() {
         return experienceRepository.findAll();
     }
 

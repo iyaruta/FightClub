@@ -6,6 +6,8 @@ security:
     expiration: 86400
     secret: e970bfde1b86ff02d538cbf9627b3e38
 
+---
+
 spring:
   profiles: default, local
   datasource:
@@ -21,7 +23,6 @@ spring:
 
 ---
 
-
 spring:
   profiles: local2
   datasource:
@@ -30,6 +31,6 @@ spring:
     password: postgres
     driver-class-name: "org.postgresql.Driver"
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create

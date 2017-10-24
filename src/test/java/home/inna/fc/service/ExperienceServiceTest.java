@@ -84,7 +84,7 @@ public class ExperienceServiceTest {
     }
 
     @Test
-    public void  testExperience() {
+    public void testExperience() {
         List<Experience> experienceList = Collections.emptyList();
         when(experienceRepository.findByRange(3, 15)).thenReturn(experienceList);
 

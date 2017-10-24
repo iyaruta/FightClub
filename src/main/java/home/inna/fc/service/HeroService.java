@@ -11,7 +11,7 @@ public class HeroService {
     @Autowired
     public HeroRepository heroRepository;
 
-    public Hero findByName(String name){
+    public Hero findByName(String name) {
         return heroRepository.findByName(name);
     }
 

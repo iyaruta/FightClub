@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlayerProvider {
 
-    public Hero getCurrentPlayer(){
+    public Hero getCurrentPlayer() {
         return null;
     }
 }

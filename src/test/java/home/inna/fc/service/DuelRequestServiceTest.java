@@ -19,15 +19,12 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class DuelRequestServiceTest {
 
-    @Mock
-    private DuelRequestRepository duelRequestRepository;
-
-    @InjectMocks
-    private DuelRequestService duelRequestService;
-
     private static final Long HERO_1 = 100L;
     private static final Long HERO_2 = 200L;
-
+    @Mock
+    private DuelRequestRepository duelRequestRepository;
+    @InjectMocks
+    private DuelRequestService duelRequestService;
 
     @Test
     public void findAll() throws Exception {

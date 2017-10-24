@@ -36,7 +36,7 @@ public class DuelRequestService {
 
     public DuelRequest reject(Long requestId, Long owner) {
         DuelRequest request = duelRequestRepository.findOne(requestId);
-        if (request != null && request.getHeroTwo() != null && Objects.equals(request.getHeroOne(),owner)) {
+        if (request != null && request.getHeroTwo() != null && Objects.equals(request.getHeroOne(), owner)) {
             request.setHeroTwo(null);
             duelRequestRepository.save(request);
         }

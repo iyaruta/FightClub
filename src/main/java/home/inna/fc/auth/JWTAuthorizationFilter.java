@@ -19,7 +19,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
-
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }

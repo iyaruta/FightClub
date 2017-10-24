@@ -18,5 +18,4 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 //    Hero saveOrUpdate(Hero hero);
 
 
-
 }
