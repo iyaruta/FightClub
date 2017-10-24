@@ -9,9 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) //обязательно для мокито тестов, что бы включился мокито-фреймворк
 public class HeroServiceTest {
@@ -47,7 +48,7 @@ public class HeroServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        heroService.save("test_name");
+        heroService.save(1L, "test_name");
 
         ArgumentCaptor<Hero> captor = ArgumentCaptor.forClass(Hero.class);
         verify(heroRepository).save(captor.capture());
@@ -55,6 +56,7 @@ public class HeroServiceTest {
 
         assertNotNull(captor);
         assertEquals("test_name", value.getName());
+        assertEquals(Long.valueOf(1), value.getAccountId());
 
     }
 

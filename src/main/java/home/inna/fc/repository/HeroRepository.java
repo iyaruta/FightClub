@@ -10,6 +10,8 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
     @Query("from Hero p where lower(p.name) = lower(:name)")
     Hero findByName(@Param("name") String name);
 
+    Hero findByAccountId(Long accountId);
+
 //    @Query("update Plaeyr set  name = hero.getName, force = : force, agility = agility, + " +
 //            "insinct = :insinct, stamina = :stamina, level = :level,+" +
 //            "health = :health, experience = :experience where firstName = :name")

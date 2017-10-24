@@ -15,8 +15,9 @@ public class HeroService {
         return heroRepository.findByName(name);
     }
 
-    public Hero save(String name){
+    public Hero save(Long accountId, String name) {
         Hero hero = new Hero();
+        hero.setAccountId(accountId);
         hero.setName(name);
         hero.setForce(3);
         hero.setAgility(3);
@@ -27,4 +28,7 @@ public class HeroService {
         return heroRepository.save(hero);
     }
 
+    public Hero getHero(Long accountId) {
+        return heroRepository.findByAccountId(accountId);
+    }
 }

@@ -20,9 +20,6 @@ public class HeroController {
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<?> get(@PathVariable String name) {
         Hero hero = heroService.findByName(name);
-        if (hero == null){
-            heroService.save(name);
-        }
         return ResponseEntity.ok(hero);
     }
 
