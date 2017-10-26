@@ -1,10 +1,15 @@
 package home.inna.fc.data;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Duel_Request")
+@Data
 public class DuelRequest {
 
     @Id
@@ -16,45 +21,8 @@ public class DuelRequest {
 
     @Column(name = "hero_two")
     private Long heroTwo;
+
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dataTime;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-
-    public Long getHeroOne() {
-        return heroOne;
-    }
-
-    public void setHeroOne(Long heroOne) {
-        this.heroOne = heroOne;
-    }
-
-    public Long getHeroTwo() {
-        return heroTwo;
-    }
-
-    public void setHeroTwo(Long heroTwo) {
-        this.heroTwo = heroTwo;
-    }
-
-    public LocalDateTime getDataTime() {
-        return dataTime;
-    }
-
-    public void setDataTime(LocalDateTime dataTime) {
-        this.dataTime = dataTime;
-    }
 }

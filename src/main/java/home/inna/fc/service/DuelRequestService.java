@@ -4,11 +4,14 @@ import home.inna.fc.data.DuelRequest;
 import home.inna.fc.repository.DuelRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Service
+@CrossOrigin
 public class DuelRequestService {
 
     @Autowired
@@ -20,6 +23,7 @@ public class DuelRequestService {
     }
 
     public DuelRequest save(DuelRequest duelRequest) {
+        duelRequest.setDataTime(LocalDateTime.now());
         return duelRequestRepository.save(duelRequest);
 
     }

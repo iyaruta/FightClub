@@ -1,15 +1,13 @@
 package home.inna.fc.controller;
 
+import home.inna.fc.auth.HeroAuth;
 import home.inna.fc.data.DuelRequest;
 import home.inna.fc.dto.Timeout;
 import home.inna.fc.service.DuelRequestService;
-import home.inna.fc.service.PlayerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,21 +17,36 @@ public class DuelRequestController {
     @Autowired
     private DuelRequestService duelRequestService;
 
-    @Autowired
-    private PlayerProvider playerProvider;
-
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<DuelRequest> findAll() {
         return duelRequestService.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public DuelRequest save() {
+    @PostMapping
+    public DuelRequest save(@AuthenticationPrincipal HeroAuth hero) {
         DuelRequest duelRequest = new DuelRequest();
-        duelRequest.setHeroOne(playerProvider.getCurrentPlayer().getId());
+        duelRequest.setHeroOne(hero.getId());
         duelRequest.setTimeout(Timeout.ONE.getValue());
-        duelRequest.setDataTime(LocalDateTime.now());
         return duelRequestService.save(duelRequest);
+    }
 
+    @DeleteMapping(value = "/{id}")
+    public void cancel(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
+        duelRequestService.cancel(id, hero.getId());
+    }
+
+    @GetMapping(value = "/{id}/accept")
+    public DuelRequest accept(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
+        return duelRequestService.accept(id, hero.getId());
+    }
+
+    @GetMapping(value = "/{id}/reject")
+    public DuelRequest reject(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
+        return duelRequestService.reject(id, hero.getId());
+    }
+
+    @GetMapping(value = "/{id}/refuse")
+    public void refuse(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
+        duelRequestService.refuse(id, hero.getId());
     }
 }
