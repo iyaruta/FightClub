@@ -5,9 +5,11 @@ import home.inna.fc.data.DuelRequest;
 import home.inna.fc.dto.Timeout;
 import home.inna.fc.service.DuelRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -31,21 +33,22 @@ public class DuelRequestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void cancel(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
-        duelRequestService.cancel(id, hero.getId());
+    public ResponseEntity cancel(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
+        boolean cancel = duelRequestService.cancel(id, hero.getId());
+        return ResponseEntity.ok(Collections.singletonMap("success", cancel));
     }
 
-    @GetMapping(value = "/{id}/accept")
+    @PatchMapping(value = "/{id}/accept")
     public DuelRequest accept(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
         return duelRequestService.accept(id, hero.getId());
     }
 
-    @GetMapping(value = "/{id}/reject")
+    @PatchMapping(value = "/{id}/reject")
     public DuelRequest reject(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
         return duelRequestService.reject(id, hero.getId());
     }
 
-    @GetMapping(value = "/{id}/refuse")
+    @PatchMapping(value = "/{id}/refuse")
     public void refuse(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
         duelRequestService.refuse(id, hero.getId());
     }

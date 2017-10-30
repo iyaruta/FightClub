@@ -48,11 +48,14 @@ public class DuelRequestService {
         return request;
     }
 
-    public void cancel(Long requestId, Long owner) {
+    public boolean cancel(Long requestId, Long owner) {
         DuelRequest request = duelRequestRepository.findOne(requestId);
         if (request != null && Objects.equals(request.getHeroOne(), owner)) {
             duelRequestRepository.delete(requestId);
+            return true;
         }
+
+        return false;
     }
 
     public void refuse(Long requestId, Long hero2) {

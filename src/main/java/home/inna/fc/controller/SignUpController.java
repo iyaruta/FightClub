@@ -1,8 +1,8 @@
 package home.inna.fc.controller;
 
-import home.inna.fc.data.Account;
 import home.inna.fc.repository.AccountRepository;
 import home.inna.fc.service.HeroService;
+import home.inna.fc.service.SignUpService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,20 +21,17 @@ public class SignUpController {
     @Autowired
     private HeroService heroService;
 
-    public SignUpController(AccountRepository accountRepository,
-                            BCryptPasswordEncoder bCryptPasswordEncoder) {
+    @Autowired
+    private SignUpService signUpService;
+
+    public SignUpController(AccountRepository accountRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.accountRepository = accountRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping
-    public void post(@RequestBody SignUp signUp) {
-        Account account = new Account();
-        account.setEmail(signUp.email);
-        account.setPassword(bCryptPasswordEncoder.encode(signUp.getPassword()));
-        accountRepository.save(account);
-
-        heroService.save(account.getId(), signUp.getName());
+    public void signUp(@RequestBody SignUp signUp) {
+        signUpService.signUp(signUp.email, signUp.password, signUp.name);
     }
 
     @Data

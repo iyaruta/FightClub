@@ -15,7 +15,9 @@ public class DuelRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int timeout;
+
     @Column(name = "hero_one")
     private Long heroOne;
 
