@@ -52,4 +52,5 @@ public class DuelRequestController {
     public void refuse(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
         duelRequestService.refuse(id, hero.getId());
     }
+
 }

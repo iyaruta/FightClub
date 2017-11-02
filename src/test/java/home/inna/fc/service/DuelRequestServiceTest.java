@@ -1,5 +1,6 @@
 package home.inna.fc.service;
 
+import home.inna.fc.battle.BattleBuilder;
 import home.inna.fc.data.DuelRequest;
 import home.inna.fc.repository.DuelRequestRepository;
 import org.junit.Test;
@@ -23,6 +24,10 @@ public class DuelRequestServiceTest {
     private static final Long HERO_2 = 200L;
     @Mock
     private DuelRequestRepository duelRequestRepository;
+
+    @Mock
+    private BattleBuilder battleBuilder;
+
     @InjectMocks
     private DuelRequestService duelRequestService;
 
@@ -179,6 +184,44 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
+    @Test
+    public void start_NoRequest() {
+        duelRequestService.start(1L, HERO_1);
+        verify(battleBuilder, never()).build(any(DuelRequest.class));
+    }
+
+    @Test
+    public void start_NotOwner() {
+        when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest(HERO_2));
+        duelRequestService.start(1L, 50L);
+
+        verify(battleBuilder, never()).build(any(DuelRequest.class));
+    }
+
+    @Test
+    public void start_NoHero2() {
+        when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest(null));
+
+        duelRequestService.start(1L, HERO_1);
+        verify(battleBuilder, never()).build(any(DuelRequest.class));
+
+    }
+
+    @Test
+    public void start() {
+        when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest(HERO_2));
+
+        duelRequestService.start(1L, HERO_1);
+        ArgumentCaptor<DuelRequest> captor = ArgumentCaptor.forClass(DuelRequest.class);
+        verify(battleBuilder).build(captor.capture());
+        DuelRequest value = captor.getValue();
+
+        assertNotNull(value);
+        assertEquals(HERO_1, value.getHeroOne());
+        assertEquals(HERO_2, value.getHeroTwo());
+    }
+
+
     private DuelRequest duelRequest(Long hero2) {
         DuelRequest duelRequest = new DuelRequest();
         duelRequest.setId(1L);
@@ -186,6 +229,5 @@ public class DuelRequestServiceTest {
         duelRequest.setHeroTwo(hero2);
         return duelRequest;
     }
-
 
 }

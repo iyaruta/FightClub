@@ -1,18 +1,20 @@
 package home.inna.fc.service;
 
+import home.inna.fc.battle.BattleBuilder;
 import home.inna.fc.data.DuelRequest;
 import home.inna.fc.repository.DuelRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-@CrossOrigin
 public class DuelRequestService {
+
+    @Autowired
+    private BattleBuilder battleBuilder;
 
     @Autowired
     private DuelRequestRepository duelRequestRepository;
@@ -64,6 +66,14 @@ public class DuelRequestService {
             request.setHeroTwo(null);
             duelRequestRepository.save(request);
         }
+    }
+
+    public void start(Long requestId, Long owner) {
+        DuelRequest request = duelRequestRepository.findOne(requestId);
+        if (request != null && Objects.equals(owner, request.getHeroOne()) && request.getHeroTwo() != null) {
+            battleBuilder.build(request);
+        }
+
     }
 
 }
