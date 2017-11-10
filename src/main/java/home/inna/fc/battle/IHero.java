@@ -1,5 +1,6 @@
 package home.inna.fc.battle;
 
+import home.inna.fc.dto.Color;
 import lombok.Data;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class IHero {
 
     private Long id;
     private Long battleId;
-    private Long teamId;
+    private Color color;
     private List<Effects> effects;
     private int focus;
     private String name;

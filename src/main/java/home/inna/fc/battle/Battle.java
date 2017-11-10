@@ -1,15 +1,19 @@
 package home.inna.fc.battle;
 
+import home.inna.fc.dto.Color;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Battle {
 
     private Long id;
-    private List<Team> teams;
-    private LocalDateTime dateTime;
     private int timeout;
+    private LocalDateTime dateTime;
+    private Map<Color, Team> teams = new HashMap<>();
+
+
 }

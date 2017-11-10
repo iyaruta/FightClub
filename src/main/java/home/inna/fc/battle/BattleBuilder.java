@@ -1,30 +1,81 @@
 package home.inna.fc.battle;
 
+import home.inna.fc.data.BattleEntity;
 import home.inna.fc.data.DuelRequest;
+import home.inna.fc.data.Hero;
+import home.inna.fc.dto.Color;
+import home.inna.fc.repository.BattleRepository;
+import home.inna.fc.repository.DuelRequestRepository;
+import home.inna.fc.repository.HeroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BattleBuilder {
 
+    @Autowired
+    private DuelRequestRepository duelRequestRepository;
+
+    @Autowired
+    private BattleRepository battleRepository;
+
+    @Autowired
+    private HeroRepository heroRepository;
 
     public Battle build(DuelRequest request) {
-        return null;
+
+        Battle battle = create(request);
+
+        IHero iHeroOne = iHero(battle.getId(), request.getHeroOne(), Color.RED);
+        IHero iHeroTwo = iHero(battle.getId(), request.getHeroTwo(), Color.BLUE);
+
+        Team team1 = team(iHeroOne);
+        Team team2 = team(iHeroTwo);
+
+        battle.getTeams().put(Color.RED, team1);
+        battle.getTeams().put(Color.BLUE, team2);
+
+
+        return battle;
     }
 
-/*    private Team team() {
+
+    private Team team(IHero hero) {
         Team team = new Team();
-        List<IHero> iHeroList = new ArrayList<>();
-        iHeroList.add(iHero();
+        team.setBattleId(hero.getBattleId());
+        team.setColor(hero.getColor());
 
+        List<IHero> heroes = new ArrayList<>();
+        heroes.add(hero);
+        team.setHeroes(heroes);
 
-        return null;
+        return team;
     }
 
-    private IHero iHero(Hero hero) {
+    private Battle create(DuelRequest request) {
+        BattleEntity battleEntity = new BattleEntity();
+        battleEntity.setDateTime(LocalDateTime.now());
+        battleEntity.setTimeout(request.getTimeout());
+        battleRepository.save(battleEntity);
+        Battle battle = new Battle();
+        battle.setId(battleEntity.getId());
+        battle.setDateTime(battleEntity.getDateTime());
+        battle.setTimeout(battleEntity.getTimeout());
 
+        return battle;
+
+    }
+
+    private IHero iHero(Long battleId, Long heroId, Color color) {
+        Hero hero = heroRepository.findOne(heroId);
         IHero iHero = new IHero();
-        iHero.setId(hero.getId());
-        iHero.setBattleId(build(request).getId());
+        iHero.setBattleId(battleId);
+        iHero.setColor(color);
+        iHero.setId(heroId);
         iHero.setName(hero.getName());
         iHero.setAbility(hero.getAbility());
         iHero.setForce(hero.getForce());
@@ -33,9 +84,9 @@ public class BattleBuilder {
         iHero.setStamina(hero.getStamina());
         iHero.setLevel(hero.getLevel());
         iHero.setHealth(hero.getHealth());
-        iHero.setCurrentHealth(0);
+        iHero.setCurrentHealth(hero.getHealth());
 
         return iHero;
     }
-*/
+
 }

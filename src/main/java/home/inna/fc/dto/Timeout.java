@@ -13,4 +13,14 @@ public enum Timeout {
     public int getValue() {
         return value;
     }
+
+    public static Timeout valueOf(int seconds) {
+        int minutes = seconds / 60;
+        if (minutes < 0 || minutes > 4) {
+            throw new IllegalArgumentException("Timeout not supported");
+        }
+
+        return values()[minutes - 1];
+
+    }
 }

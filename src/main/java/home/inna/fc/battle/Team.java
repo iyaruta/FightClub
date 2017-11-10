@@ -7,9 +7,8 @@ import java.util.List;
 
 @Data
 public class Team {
-    private Long id;
-    private Long battleId;
-    private List<IHero> iHeroes;
     private Color color;
+    private Long battleId;
+    private List<IHero> heroes;
 
 }

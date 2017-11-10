@@ -31,4 +31,5 @@ public class HeroService {
     public Hero getHero(Long accountId) {
         return heroRepository.findByAccountId(accountId);
     }
+
 }
