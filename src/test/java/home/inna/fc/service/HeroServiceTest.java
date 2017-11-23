@@ -1,6 +1,6 @@
 package home.inna.fc.service;
 
-import home.inna.fc.data.Hero;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.repository.HeroRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

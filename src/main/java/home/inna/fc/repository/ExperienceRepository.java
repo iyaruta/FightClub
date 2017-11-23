@@ -1,6 +1,6 @@
 package home.inna.fc.repository;
 
-import home.inna.fc.data.Experience;
+import home.inna.fc.entity.Experience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

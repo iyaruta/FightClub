@@ -1,7 +1,7 @@
 package home.inna.fc.service;
 
 import home.inna.fc.battle.BattleBuilder;
-import home.inna.fc.data.DuelRequest;
+import home.inna.fc.entity.DuelRequest;
 import home.inna.fc.exception.ValidationException;
 import home.inna.fc.repository.DuelRequestRepository;
 import home.inna.fc.repository.HeroBattleRepository;

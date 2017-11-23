@@ -1,6 +1,6 @@
 package home.inna.fc.controller;
 
-import home.inna.fc.data.Experience;
+import home.inna.fc.entity.Experience;
 import home.inna.fc.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

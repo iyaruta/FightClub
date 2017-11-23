@@ -1,4 +1,4 @@
-package home.inna.fc.data;
+package home.inna.fc.entity;
 
 import lombok.Data;
 

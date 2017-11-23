@@ -1,7 +1,7 @@
 package home.inna.fc.service;
 
-import home.inna.fc.data.Account;
-import home.inna.fc.data.Hero;
+import home.inna.fc.entity.Account;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.exception.ValidationException;
 import home.inna.fc.repository.AccountRepository;
 import org.junit.Test;

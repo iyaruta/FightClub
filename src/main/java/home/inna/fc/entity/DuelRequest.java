@@ -1,4 +1,4 @@
-package home.inna.fc.data;
+package home.inna.fc.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;

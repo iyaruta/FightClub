@@ -1,6 +1,6 @@
 package home.inna.fc.controller;
 
-import home.inna.fc.data.Hero;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

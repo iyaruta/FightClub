@@ -1,7 +1,7 @@
 package home.inna.fc.service;
 
-import home.inna.fc.data.Experience;
-import home.inna.fc.data.Hero;
+import home.inna.fc.entity.Experience;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.repository.ExperienceRepository;
 import home.inna.fc.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;

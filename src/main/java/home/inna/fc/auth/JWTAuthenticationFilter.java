@@ -1,8 +1,8 @@
 package home.inna.fc.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import home.inna.fc.data.Account;
-import home.inna.fc.data.Hero;
+import home.inna.fc.entity.Account;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

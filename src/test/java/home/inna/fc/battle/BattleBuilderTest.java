@@ -1,9 +1,9 @@
 package home.inna.fc.battle;
 
-import home.inna.fc.data.BattleEntity;
-import home.inna.fc.data.DuelRequest;
-import home.inna.fc.data.Hero;
 import home.inna.fc.dto.Color;
+import home.inna.fc.entity.BattleEntity;
+import home.inna.fc.entity.DuelRequest;
+import home.inna.fc.entity.Hero;
 import home.inna.fc.repository.BattleRepository;
 import home.inna.fc.repository.HeroRepository;
 import org.junit.Test;

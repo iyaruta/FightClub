@@ -1,6 +1,6 @@
 package home.inna.fc.auth;
 
-import home.inna.fc.data.Account;
+import home.inna.fc.entity.Account;
 import home.inna.fc.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

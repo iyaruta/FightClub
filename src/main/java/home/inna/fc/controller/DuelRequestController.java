@@ -1,8 +1,8 @@
 package home.inna.fc.controller;
 
 import home.inna.fc.auth.HeroAuth;
-import home.inna.fc.data.DuelRequest;
 import home.inna.fc.dto.Timeout;
+import home.inna.fc.entity.DuelRequest;
 import home.inna.fc.service.DuelRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
