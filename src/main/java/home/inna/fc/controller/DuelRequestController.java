@@ -34,8 +34,8 @@ public class DuelRequestController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity cancel(@PathVariable Long id, @AuthenticationPrincipal HeroAuth hero) {
-        boolean cancel = duelRequestService.cancel(id, hero.getId());
-        return ResponseEntity.ok(Collections.singletonMap("success", cancel));
+        duelRequestService.cancel(id, hero.getId());
+        return ResponseEntity.ok(Collections.singletonMap("success", true));
     }
 
     @PatchMapping(value = "/{id}/accept")

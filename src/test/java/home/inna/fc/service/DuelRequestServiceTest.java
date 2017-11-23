@@ -2,7 +2,10 @@ package home.inna.fc.service;
 
 import home.inna.fc.battle.BattleBuilder;
 import home.inna.fc.data.DuelRequest;
+import home.inna.fc.exception.ValidationException;
 import home.inna.fc.repository.DuelRequestRepository;
+import home.inna.fc.repository.HeroBattleRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -28,8 +31,17 @@ public class DuelRequestServiceTest {
     @Mock
     private BattleBuilder battleBuilder;
 
+    @Mock
+    private HeroBattleRepository heroBattleRepository;
+
     @InjectMocks
     private DuelRequestService duelRequestService;
+
+    @Before
+    public void init() {
+        when(heroBattleRepository.findByHero(HERO_1)).thenReturn(null);
+        when(heroBattleRepository.findByHero(HERO_2)).thenReturn(null);
+    }
 
     @Test
     public void findAll() throws Exception {
@@ -44,6 +56,7 @@ public class DuelRequestServiceTest {
 
     @Test
     public void save() throws Exception {
+        when(heroBattleRepository.findByHero(HERO_1)).thenReturn(null);
         duelRequestService.save(duelRequest(null));
         ArgumentCaptor<DuelRequest> captor = ArgumentCaptor.forClass(DuelRequest.class);
         verify(duelRequestRepository).save(captor.capture());
@@ -52,11 +65,17 @@ public class DuelRequestServiceTest {
         assertNotNull(value);
     }
 
+    @Test(expected = ValidationException.class)
+    public void save_alreadyInBattle() {
+        when(heroBattleRepository.findByHero(HERO_1)).thenReturn(5L);
+        duelRequestService.save(duelRequest(null));
+    }
 
     @Test
     public void accept() throws Exception {
         DuelRequest duelRequest = duelRequest(null);
 
+        when(heroBattleRepository.findByHero(1L)).thenReturn(null);
         when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest);
 
         DuelRequest res = duelRequestService.accept(1L, HERO_2);
@@ -66,8 +85,10 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository).save(duelRequest);
     }
 
-    @Test
+
+    @Test(expected = ValidationException.class)
     public void accept_NotReq() throws Exception {
+        when(heroBattleRepository.findByHero(HERO_2)).thenReturn(null);
         when(duelRequestRepository.findOne(1L)).thenReturn(null);
 
         DuelRequest res = duelRequestService.accept(1L, HERO_2);
@@ -75,8 +96,9 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void accept_RequestOccupied() {
+        when(heroBattleRepository.findByHero(HERO_2)).thenReturn(null);
         DuelRequest duelRequest = duelRequest(HERO_2);
         when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest);
 
@@ -98,7 +120,7 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void reject_AlreadyRefused() {
         DuelRequest request = duelRequest(null);
         when(duelRequestRepository.findOne(1L)).thenReturn(request);
@@ -111,7 +133,7 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void reject_NoRequest() {
         when(duelRequestRepository.findOne(1L)).thenReturn(null);
 
@@ -121,24 +143,24 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void reject_NotOwner() {
         DuelRequest req = duelRequest(HERO_2);
         when(duelRequestRepository.findOne(1L)).thenReturn(req);
         duelRequestService.reject(1L, 3L);
 
-        verify(duelRequestRepository, never()).delete(anyLong());
+//        verify(duelRequestRepository, never()).delete(anyLong());
 
     }
 
     @Test
     public void cancel() {
         DuelRequest req = duelRequest(HERO_2);
+        when(heroBattleRepository.findByHero(1L)).thenReturn(null);
         when(duelRequestRepository.findOne(1L)).thenReturn(req);
-
         duelRequestService.cancel(1L, HERO_1);
 
-        verify(duelRequestRepository).delete(1L);
+        verify(duelRequestRepository).delete(req);
     }
 
     @Test
@@ -147,7 +169,7 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).delete(anyLong());
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void cancel_NotOwner() {
         DuelRequest req = duelRequest(HERO_2);
         when(duelRequestRepository.findOne(1L)).thenReturn(req);
@@ -176,7 +198,7 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void refuse_NotOwner() {
         DuelRequest request = duelRequest(HERO_2);
         when(duelRequestRepository.findOne(1L)).thenReturn(request);
@@ -184,13 +206,13 @@ public class DuelRequestServiceTest {
         verify(duelRequestRepository, never()).save(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void start_NoRequest() {
         duelRequestService.start(1L, HERO_1);
         verify(battleBuilder, never()).build(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void start_NotOwner() {
         when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest(HERO_2));
         duelRequestService.start(1L, 50L);
@@ -198,7 +220,7 @@ public class DuelRequestServiceTest {
         verify(battleBuilder, never()).build(any(DuelRequest.class));
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void start_NoHero2() {
         when(duelRequestRepository.findOne(1L)).thenReturn(duelRequest(null));
 

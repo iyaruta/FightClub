@@ -12,4 +12,5 @@ public interface HeroRepository extends JpaRepository<Hero, Long> {
 
     Hero findByAccountId(Long accountId);
 
+
 }
