@@ -5,7 +5,6 @@ import home.inna.fc.entity.BattleEntity;
 import home.inna.fc.entity.DuelRequest;
 import home.inna.fc.entity.Hero;
 import home.inna.fc.repository.BattleRepository;
-import home.inna.fc.repository.DuelRequestRepository;
 import home.inna.fc.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,9 +15,6 @@ import java.util.List;
 
 @Component
 public class BattleBuilder {
-
-    @Autowired
-    private DuelRequestRepository duelRequestRepository;
 
     @Autowired
     private BattleRepository battleRepository;
@@ -39,6 +35,8 @@ public class BattleBuilder {
         battle.getTeams().put(Color.RED, team1);
         battle.getTeams().put(Color.BLUE, team2);
 
+        Battles battles = new Battles();
+        battles.add(battle);
 
         return battle;
     }
