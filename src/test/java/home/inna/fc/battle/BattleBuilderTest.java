@@ -30,6 +30,9 @@ public class BattleBuilderTest {
     @Mock
     private HeroRepository heroRepository;
 
+    @Mock
+    private Battles battles;
+
     @InjectMocks
     private BattleBuilder battleBuilder;
 
@@ -48,6 +51,7 @@ public class BattleBuilderTest {
 
         Battle battle = battleBuilder.build(duelRequest);
         assertBattle(battle);
+        verify(battles).add(battle);
 
         Map<Color, Team> teams = battle.getTeams();
 
@@ -97,8 +101,6 @@ public class BattleBuilderTest {
         assertEquals(206, blueHero.getLevel());
         assertEquals(207, blueHero.getHealth());
         assertEquals(207, blueHero.getCurrentHealth());
-
-
     }
 
     private void assertBattle(Battle battle) {

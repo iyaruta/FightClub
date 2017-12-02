@@ -4,15 +4,13 @@ import home.inna.fc.dto.Color;
 import lombok.Data;
 
 import java.util.List;
-
+import java.util.Map;
 @Data
 public class IHero {
 
     private Long id;
     private Long battleId;
     private Color color;
-    private List<Effects> effects;
-    private int focus;
     private String name;
     private int ability;
     private int force;
@@ -22,5 +20,10 @@ public class IHero {
     private int level;
     private int health;
     private int currentHealth;
+
+    private Map<Long, Attack> attacks;
+    private IHero focus;
+    private List<Effects> effects;
+
 
 }

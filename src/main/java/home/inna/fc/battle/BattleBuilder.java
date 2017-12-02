@@ -22,8 +22,10 @@ public class BattleBuilder {
     @Autowired
     private HeroRepository heroRepository;
 
-    public Battle build(DuelRequest request) {
+    @Autowired
+    private Battles battles;
 
+    public Battle build(DuelRequest request) {
         Battle battle = create(request);
 
         IHero iHeroOne = iHero(battle.getId(), request.getHeroOne(), Color.RED);
@@ -35,7 +37,6 @@ public class BattleBuilder {
         battle.getTeams().put(Color.RED, team1);
         battle.getTeams().put(Color.BLUE, team2);
 
-        Battles battles = new Battles();
         battles.add(battle);
 
         return battle;

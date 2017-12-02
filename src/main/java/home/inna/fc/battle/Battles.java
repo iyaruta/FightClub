@@ -11,6 +11,10 @@ public class Battles {
 
     public void add(Battle battle) {
         battles.put(battle.getId(), battle);
-
     }
+
+    public Battle getBattle(Long battleId) {
+        return battles.get(battleId);
+    }
+
 }
